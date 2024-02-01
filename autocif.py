@@ -14,6 +14,8 @@ def open_cif():
     cifpath = fd.askopenfilename(
         filetypes=[("Cif Files", "*.cif"), ("OD Files", "*.cif_od"), ("All Files", "*.*")]
     )
+    norm_path = cifpath.split("/")[-1]
+    selected_cif.config(text = "CIF selecionado: %s"%(norm_path))
 
     
 def open_od():
@@ -26,6 +28,8 @@ def open_od():
         filetypes=[("OD Files", "*.cif_od"),("Cif Files", "*.cif"), ("All Files", "*.*")]
 
     )
+    norm_path = odpath.split("/")[-1]
+    selected_odcif.config(text = "CIF selecionado: %s"%(norm_path))
 
 def start_command():
     global nfname
@@ -45,15 +49,19 @@ def fa_finder(fileaddress):
 
 cifpath = '' 
 odpath = ''
+nfname = ''
 window = tk.Tk()
 window.title("AutoCif")
 greeting = tk.Label(text="Bem vindo ao AutoCif", fg="#000000",bg = "#FFFFFF")
 greeting.pack()
-
+selected_cif = tk.Label(text="CIF selecionado: %s"%(cifpath), fg="#000000",bg = "#FFFFFF")
+selected_cif.pack()
 btn_opencif = tk.Button(text= "Open Cif File",fg="#000000",bg = "#FFFFFF",relief= "groove",command= open_cif)
 btn_opencif.pack()
 # label_cif = tk.Label(text=cifpath)
 # label_cif.pack()
+selected_odcif = tk.Label(text="CIF_OD selecionado: %s"%(odpath), fg="#000000",bg = "#FFFFFF")
+selected_odcif.pack()
 btn_openod = tk.Button(text= "Open OD File",fg="#000000",bg = "#FFFFFF",relief= "groove" ,command= open_od)
 btn_openod.pack()
 # label_od = tk.Label(text=odpath)
@@ -66,6 +74,8 @@ ent_nfname.pack()
 
 btn_start = tk.Button(text= "Start Process",fg="#000000",bg = "#FFFFFF",relief= "groove" ,command= start_command)
 btn_start.pack()
+window.update
+window.update_idletasks
 window.mainloop()
 
 
